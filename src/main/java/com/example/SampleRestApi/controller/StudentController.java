@@ -46,14 +46,11 @@ public class StudentController {
                 .map(studentService::convertStudentToDTO)
                 .collect(Collectors.toList());//Convert to Data Transfer Objects
     }
-    /**
-     * FIX UPDATE STUDENT
-     **/
     //PUT
     @PutMapping("/updateStudent")
     public StudentDTO updateStudent(@RequestBody StudentDTO studentDTO){
-       Student updatedStudent = studentService.updateStudent(studentDTO);
-       return studentService.convertStudentToDTO(updatedStudent);
+       Student updatedStudent = studentService.convertDTOToStudent(studentDTO);
+       return studentService.convertStudentToDTO(studentRepository.save(updatedStudent));
     }
 
     //POST
